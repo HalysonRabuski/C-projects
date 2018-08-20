@@ -22,6 +22,47 @@ void inserirPrimeiro(arvore **l, int x){
 	*l=n;
 }
 
+void preOrdem (arvore **l){
+	if (*l != NULL){
+		printf("%d ", (*l)->valor);
+		
+		if((*l)->pmenor!=NULL){
+			preOrdem(&(*l)->pmenor);
+		}
+		if((*l)->pmaior!=NULL){
+			preOrdem(&(*l)->pmaior);
+		}
+	}
+}
+
+void emOrdem (arvore **l){
+		
+		if((*l)->pmenor!=NULL){
+			emOrdem(&(*l)->pmenor);
+		}
+		
+		if (*l != NULL){
+		printf("%d ", (*l)->valor);
+		
+		if((*l)->pmaior!=NULL){
+			emOrdem(&(*l)->pmaior);
+		}
+	}
+}
+
+void posOrdem (arvore **l){
+		
+		if((*l)->pmenor!=NULL){
+			posOrdem(&(*l)->pmenor);
+		}
+		if((*l)->pmaior!=NULL){
+			posOrdem(&(*l)->pmaior);
+		}
+		if (*l != NULL){
+		printf("%d ", (*l)->valor);
+	}
+}
+
 void inserir(arvore **l, int x){
 	while(1){
 		if((*l)->pcima!=NULL){
@@ -64,6 +105,16 @@ void del(arvore **l, int x){
 		free(*l);
 		*l = NULL;
 	}else if(((*l)->pmaior==NULL)&&((*l)->pmenor==NULL)){
+		if((*l)->pcima->pmaior!=NULL){
+			if((*l)->pcima->pmaior->valor==(*l)->valor){
+				(*l)->pcima->pmaior=NULL;
+			}
+		}else if((*l)->pcima->pmenor!=NULL){
+			if(((*l)->pcima->pmenor->valor)==((*l)->valor)){
+				(*l)->pcima->pmenor=NULL;			
+			}
+		}
+		
 		n = (*l)->pcima;
 		free(*l);
 		*l=n;
@@ -121,6 +172,29 @@ void del(arvore **l, int x){
 	}
 }
 
+int profun(arvore **l){
+
+int profunEsq=0;
+int profunDir=0;
+
+	if((*l)==NULL){
+		return-1;
+	}else{
+			if((*l)->pmenor!=NULL){
+				 profunEsq = profun(&(*l)->pmenor);
+			}
+			if((*l)->pmaior!=NULL){
+				 profunDir = profun(&(*l)->pmaior);
+			}
+			
+			if(profunEsq>profunDir){
+				return profunEsq+1;
+			}else{
+				return profunDir+1;
+			}
+		}
+}
+
 main(){
 	struct arvore *tree;
 	int x;
@@ -135,7 +209,7 @@ main(){
 		}else{
 			printf("A arvore esta vazia!\n");
 		}
-		printf("Escolha a opcao desejada 1-inserir 2-direita 3-esquerda 4-cima 5-deletar 6-sair\n\n");
+		printf("Escolha a opcao desejada \n1-Inserir \n2-Direita \n3-Esquerda \n4-Cima \n5-Deletar \n6-Pre Ordem \n7-Profundidade Maxima \n8-em ordem \n9-Pos Ordem \n10-SAIR\n\n");
 		scanf("%d", &x);
 		
 		if((x==1)&&(tree==NULL)){
@@ -144,7 +218,7 @@ main(){
 			raiz=x;
 			inserirPrimeiro(&tree, x);
 		}else if((x==1)&&(tree!=NULL)){
-			printf("digite o valor que deseja inserir\n");
+			printf("Digite o valor que deseja inserir\n");
 			scanf("%d", &x);
 			inserir(&tree, x);
 		}else if((x==2)&&(tree!=NULL)&&(tree->pmaior!=NULL)){
@@ -157,10 +231,60 @@ main(){
 			tree=tree->pcima;
 		}else if((x==5)&&(tree!=NULL)){
 			del(&tree, raiz);
-		}else if(x==6){
+		}else if((x==6)&&(tree!=NULL)){
+			while(1){
+				if (tree->pcima!=NULL){
+					tree=tree->pcima;
+				}else{
+					break;
+				}
+			}
+			system("cls");
+			printf("Os valores encontrados na arvore sao: ");
+			preOrdem(&tree);
+			printf("\n");
+			system("pause");
+		}else if((x==7)&&(tree!=NULL)){
+			while(1){
+				if (tree->pcima!=NULL){
+					tree=tree->pcima;
+				}else{
+					break;
+				}
+			}
+				system("cls");				
+				printf("A profundidade maxima da arvore e %d\n\n", profun(&tree)-1);
+				system("pause");
+		}else if((x==8)&&(tree!=NULL)){
+			while(1){
+				if (tree->pcima!=NULL){
+					tree=tree->pcima;
+				}else{
+					break;
+				}
+			}
+				system("cls");
+				printf("os valores da arvore em ordem: ");
+				emOrdem(&tree);
+				printf("\n\n");
+				system("pause");
+		}else if((x==9)&&(tree!=NULL)){
+			while(1){
+				if (tree->pcima!=NULL){
+					tree=tree->pcima;
+				}else{
+					break;
+				}
+			}
+				system("cls");
+				printf("os valores da arvore em pos ordem: ");
+				posOrdem(&tree);
+				printf("\n\n");
+				system("pause");
+		}else if(x==10){
 			return 0;
 		}
-			
+	
 	}
 }
 
