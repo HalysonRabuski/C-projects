@@ -64,6 +64,7 @@ main(){
 			for(j=0;j<8;j++){
 				if((grafo[maiorGraf][0].cor==grafo[j][0].cor)&&(grafo[maiorGraf][j].incid>0)){
 					cor++;
+					j=0;
 				}
 			}
 			grafo[maiorGraf][0].cor=cor;
