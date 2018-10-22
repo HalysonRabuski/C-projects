@@ -195,6 +195,23 @@ int profunDir=0;
 		}
 }
 
+ int desbalanceamento(arvore **l){
+ 	
+ 	int esq, dir; 
+ 	
+	 if(*l == NULL){
+		return -1;
+	}else{
+	 	 esq = profun(&(*l)->pmenor);
+	 	 dir = profun(&(*l)->pmaior);
+
+			int temp = 0 ;	 	
+	 		temp = esq - dir;
+	
+		 	return temp; 		
+		}
+	}
+
 main(){
 	struct arvore *tree;
 	int x;
@@ -209,7 +226,7 @@ main(){
 		}else{
 			printf("A arvore esta vazia!\n");
 		}
-		printf("Escolha a opcao desejada \n1-Inserir \n2-Direita \n3-Esquerda \n4-Cima \n5-Deletar \n6-Pre Ordem \n7-Profundidade Maxima \n8-em ordem \n9-Pos Ordem \n10-SAIR\n\n");
+		printf("Escolha a opcao desejada \n1-Inserir \n2-Direita \n3-Esquerda \n4-Cima \n5-Deletar \n6-Pre Ordem \n7-Profundidade Maxima \n8-em ordem \n9-Pos Ordem \n10-Desbalanceamento 11-SAIR\n\n");
 		scanf("%d", &x);
 		
 		if((x==1)&&(tree==NULL)){
@@ -282,6 +299,25 @@ main(){
 				printf("\n\n");
 				system("pause");
 		}else if(x==10){
+			while(1){
+				if (tree->pcima!=NULL){
+					tree=tree->pcima;
+				}else{
+					break;
+				}
+			}
+				system("cls");
+				printf("\nO desbalanceamento da arvore e %i: ", desbalanceamento(&tree));
+				if(desbalanceamento(&tree)<0){
+					printf("\nEsta desbalanceada a direita!");
+				}else if(desbalanceamento(&tree)>0){
+					printf("\nEsta desbalanceada a esquerda!\n");
+				}else if(desbalanceamento==0){
+					printf("esta balanceada!\n");
+				}
+				printf("\n\n");
+				system("pause");
+		}else if(x==11){
 			return 0;
 		}
 	
