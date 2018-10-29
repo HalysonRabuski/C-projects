@@ -74,6 +74,11 @@ main(){
 		}
 		
 	
+	for(i=0;i<8;i++){
+			printf("\na cor do no %d e %d", i, grafo[i][i].cor);
+	}
+	
+	
 	
 	printf("\nA quantidade necessaria de cores para pintar esse grafo de forma que duas cores identicas nao se encostem e %d", maiorCor+1);
 	
