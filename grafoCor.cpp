@@ -4,7 +4,7 @@
 struct no{
 		int cor=0;
 		int tamanho=0;
-		int incid;
+		int incid=0;
 		int flag=0;
 	};
 	
@@ -12,23 +12,23 @@ struct no{
 
 int qualMaior(no[8][8]) {
 	int maior=0;
-	int i;
+	int i=0;
 	
 	for(i=0;i<8;i++){
-		if(((grafo[i][0].tamanho)>maior)&&(grafo[i][0].flag==0)){
-			maior = i+1;
-			grafo[i][0].flag = 1;
+		if(((grafo[i][i].tamanho)>=maior)&&(grafo[i][i].flag==0)){
+			maior = i;
 		}
 	}
-	return maior;
+		grafo[maior][maior].flag = 1;
+		return maior;
 }
 
 
 main(){
 	
 
-	int i;
-	int j;
+	int i=0;
+	int j=0;
 	int cor=0;
 	int maiorGraf=0;
 	int maiorCor=0;
@@ -40,7 +40,7 @@ main(){
 			printf("Qual a incidencia o no %d tem no no %d? ", i+1, j+1);
 			scanf(" %d", &grafo[i][j].incid);
 			if(grafo[i][j].incid>0){
-				grafo[i][0].tamanho++;
+				grafo[i][i].tamanho++;
 			}
 		}
 	}
@@ -56,29 +56,27 @@ main(){
 	}
 	
 	
-	printf("TESTE MAIOR %d", qualMaior(grafo));
-	
-	
 		for(i=0;i<8;i++){
 			maiorGraf = qualMaior(grafo);
+			j=0;
 			for(j=0;j<8;j++){
-				if((grafo[maiorGraf][0].cor==grafo[j][0].cor)&&(grafo[maiorGraf][j].incid>0)){
+				if((grafo[maiorGraf][maiorGraf].cor==grafo[j][j].cor)&&(grafo[maiorGraf][j].incid>0)&&(maiorGraf!=j)){
 					cor++;
 					j=0;
+					grafo[maiorGraf][maiorGraf].cor=cor;
+				}
+				if(cor>maiorCor){
+				maiorCor=cor;
 				}
 			}
-			grafo[maiorGraf][0].cor=cor;
-			if(cor>maiorCor){
-				maiorCor=cor;
-			}
+		
 			cor=0;
 		}
 		
 	
 	
-	printf("\nA quantidade necessaria de cores para pintar esse grafo de forma que duas cores identicas nao se encostem e %d", maiorCor);
+	printf("\nA quantidade necessaria de cores para pintar esse grafo de forma que duas cores identicas nao se encostem e %d", maiorCor+1);
 	
 	return 0;
+	
 }
-
-
