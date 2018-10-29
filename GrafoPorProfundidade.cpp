@@ -8,25 +8,29 @@ int pos=1;
 
 void percorrer(int i){
 	int j = 0;
+	int k;
 	int count = 0;
 	int flag = 0;
 	
-	for(j=0;j<8;j++){
-		if(grafo[i][j]!=0){
-			flag=0;
-			for(count=0;count<8;count++){
-				if(vet[count]==j+1){
-					flag=1;
-					break;
+		for(j=0;j<8;j++){
+			if(grafo[i][j]!=0){
+				flag=0;
+				for(count=0;count<8;count++){
+					if(vet[count]==j+1){
+						flag=1;
+						break;
+					}
+				}
+				if(flag==0){
+					vet[pos]=j+1;
+					if(pos<=6){
+						pos++;
+					}
 				}
 			}
-			if(flag==0){
-				vet[pos]=j+1;
-				pos++;
-				percorrer(j);
-			}
 		}
-	}
+		
+	
 		
 }
 
@@ -55,6 +59,12 @@ main(){
 	
 	vet[0]=1;
 	percorrer(0);
+	
+	for(i=1;i<8;i++){
+		//if(vet[i]!=0){
+			percorrer(vet[i]);
+		//}
+	}
 	
 	printf("\nVetor:\n");
 	for(i=0;i<8;i++){
